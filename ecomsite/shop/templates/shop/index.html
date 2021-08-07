@@ -131,9 +131,7 @@
 </body>
 
 <script type="text/javascript">
-    console.log("Working");
-
-    <!--To check that localStorage has cart and create cart-->
+    //To check that localStorage has cart and create cart
     if(localStorage.getItem("cart")==null){
         var cart = {};
     }
@@ -141,11 +139,9 @@
         cart = JSON.parse(localStorage.getItem("cart"));
     }
     console.log(cart);
-    <!--Add item id to cart and add quantity-->
+    //Add item id to cart and add quantity
     $(document).on('click', '.atc', function(){
-        console.log("The Add to cart button is clicked")
-        var item_id = this.id.toString();
-        
+        var item_id = this.id.toString();        
         if(cart[item_id] != undefined){
             quantity = cart[item_id][0]+1;
             cart[item_id][0] = quantity;
@@ -157,20 +153,15 @@
             name = document.getElementById("nm" + item_id).innerHTML;
             cart[item_id] = [quantity, name, price];
         }
-        console.log(cart);
 
-        <!--Add Item name in localStorage cart-->
+        //Add Item name in localStorage cart
         localStorage.setItem("cart", JSON.stringify(cart));
 
-        <!--For add cart quantity on navbar-->
+        //For add cart quantity on navbar
         document.getElementById("cart").innerHTML = "Cart(" + Object.keys(cart).length + ")" ;
     });
     
-    <!--This is for popover-->
-    $(function () {
-    })
-
-    <!--Adding Cart items to popover-->
+    //Adding Cart items to popover
     DisplayCart(cart);
     function DisplayCart(cart){
         var cartString = "";
@@ -179,13 +170,11 @@
         //To solve bug in popover
         let cartObj = JSON.parse(localStorage.getItem("cart"));
         for(item in cartObj){
-            //cartString += document.getElementById("nm" + x).innerHTML + ", Qty:" + cart[x][0] + "</br>";
             cartString += cartObj[item][1] + "Qty:" + cartObj[item][0] + "</br>";
         }
         cartString += "<br><a href='/checkout' class='btn btn-outline-warning' id='checkout'> Checkout </a>";
         document.getElementById("cart").setAttribute("data-content",cartString);
         $('[data-toggle="popover"]').popover();
-
     }
 </script>
 

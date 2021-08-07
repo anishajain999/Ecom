@@ -106,7 +106,7 @@
 
 
 <script type="text/javascript">
-<!--To check that localStorage has cart and create cart-->
+//To check that localStorage has cart and create cart
     if(localStorage.getItem("cart")==null){
         var cart = {};
     }
@@ -114,6 +114,7 @@
         cart = JSON.parse(localStorage.getItem("cart"));
     }
 
+    // to show item in frontend
     let total = 0;
     for(item in cart){
         let name = cart[item][1];
@@ -133,7 +134,7 @@
                     </li>`
     $('#item_list').append(itemTotal);
     $('#total').val(total)
-    <!--Add items to model database-->
+    //Add items to model database
     $('#items').val(JSON.stringify(cart));
 </script>
 
