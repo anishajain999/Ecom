@@ -1,0 +1,192 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+    <!--jQuery Link-->
+    <script
+		src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous">
+    </script>
+
+    <!--Statics link-->
+    <link href="{% static 'shop/style.css' %}">
+
+    <title>Ecom</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" href="#">Navbar</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" href="/checkout" id="checkout">Checkout</a>
+                            <a type="button" id="cart" class="nav-link active" data-container="body" data-toggle="popover"  data-placement="bottom" data-html="true">
+                                Cart(0)
+                            </a>
+                        </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row my-3">
+            <div class="col-md-12">
+                <form class="card card-sm">
+                    <div class="card-body  row no-gutters text-center">
+                        <div class="col">
+                            <input type="search" name="item_name" placeholder="Search for product" class="form-control form-control-borderless">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-success">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row ">
+            {% for product in product_objects %}
+                <div class="col-md-3 my-4">
+                    <div class="card" style="width: 17rem;">
+                        <img src="{{product.image}}" class="card-img-top" height="250px">
+                        <div class="card-body">
+                            <h5 class="card-title" id="nm{{product.id}}"><b>{{product.title|slice:"0:15"}}..</b></h5>
+                            <b><p class="card-text text-success" id="price{{product.id}}">{{product.price}}</p></b>
+                            <a href="{{product.id}}" class="btn btn-warning"><b>More</b></a>
+                            <button href="#" id="{{product.id}}" class="btn btn-warning atc"><b>Add to cart</b></button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 offset-md-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                    {% if product_objects.has_previous %}
+                        <li class="page-item">                       
+                            <a class="page-link" href="?page={{product_objects.previous_page_number}}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>                        
+                        </li>
+                    {% endif %}
+                        <li class="page-item active"><a class="page-link" href="?page={{product_objects.page_number}}">Current</a></li>
+                        {% comment %} <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li> {% endcomment %}
+                    {% if product_objects.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{product_objects.next_page_number}}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+<script type="text/javascript">
+    console.log("Working");
+
+    <!--To check that localStorage has cart and create cart-->
+    if(localStorage.getItem("cart")==null){
+        var cart = {};
+    }
+    else{
+        cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    console.log(cart);
+    <!--Add item id to cart and add quantity-->
+    $(document).on('click', '.atc', function(){
+        console.log("The Add to cart button is clicked")
+        var item_id = this.id.toString();
+        
+        if(cart[item_id] != undefined){
+            quantity = cart[item_id][0]+1;
+            cart[item_id][0] = quantity;
+            cart[item_id][2] = cart[item_id][2] + parseFloat(document.getElementById("price" + item_id).innerHTML);
+        }
+        else{
+            quantity = 1;
+            price = parseFloat(document.getElementById("price" + item_id).innerHTML);
+            name = document.getElementById("nm" + item_id).innerHTML;
+            cart[item_id] = [quantity, name, price];
+        }
+        console.log(cart);
+
+        <!--Add Item name in localStorage cart-->
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        <!--For add cart quantity on navbar-->
+        document.getElementById("cart").innerHTML = "Cart(" + Object.keys(cart).length + ")" ;
+    });
+    
+    <!--This is for popover-->
+    $(function () {
+    })
+
+    <!--Adding Cart items to popover-->
+    DisplayCart(cart);
+    function DisplayCart(cart){
+        var cartString = "";
+        cartString += "<h5>This is your cart</h5>";
+        var cartIndex = 1;
+        //To solve bug in popover
+        let cartObj = JSON.parse(localStorage.getItem("cart"));
+        for(item in cartObj){
+            //cartString += document.getElementById("nm" + x).innerHTML + ", Qty:" + cart[x][0] + "</br>";
+            cartString += cartObj[item][1] + "Qty:" + cartObj[item][0] + "</br>";
+        }
+        cartString += "<br><a href='/checkout' class='btn btn-outline-warning' id='checkout'> Checkout </a>";
+        document.getElementById("cart").setAttribute("data-content",cartString);
+        $('[data-toggle="popover"]').popover();
+
+    }
+</script>
+
+</html>
